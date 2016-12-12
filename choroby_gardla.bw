@@ -14,8 +14,8 @@ knowledge base nazwa
      tempCiala:
      query "Podaj temperaturê cia³a?"
      unit "°C"
-     val range <35.1, 41.5>
-     param{ NORMALNA = 36.7, STAN_PODGOR = 37.5 }  ;
+     val range <35.1, 41.5>;
+   //  param{ NORMALNA = 36.7, STAN_PODGOR = 37.5 }  ;
      
     
      
