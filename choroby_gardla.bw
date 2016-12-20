@@ -365,16 +365,35 @@ knowledge base nazwa
 // end;
 
  control
-  char Imiê, Nazwisko, Ulica, NrDomu, KodPocztowy, Województwo;
-  int Plec;
-
+  int Plec, Palacz, Wiek_index;
+  char Temperatura;
+  char Wiek_tab[12];
 
    function pokaBydlaka
    begin
      int DLG, Ret;
+     Plec := 0;
+     Palacz := 0;
+     Wiek_index := 0;
+     Temperatura := "";
      dlgCreate( DLG, "", "dialog.dlg" );
-    
-     dlgExecute( DLG, Ret );
+     dlgBindEdit(DLG, "Temp", Temperatura);
+     dlgBindRadioButton(DLG, "Plec", Plec);
+     dlgBindCheckBox(DLG, "Palacz", Palacz);
+     Wiek_tab[0] := "1-5";
+     Wiek_tab[1] := "6-10";
+     Wiek_tab[2] := "11-15";
+     Wiek_tab[3] := "16-20";
+     Wiek_tab[4] := "21-30";
+     Wiek_tab[5] := "31-40";
+     Wiek_tab[6] := "41-50";
+     Wiek_tab[7] := "51-60";
+     Wiek_tab[8] := "61-70";
+     Wiek_tab[9] := "71-80";
+     Wiek_tab[10] := "81-90";
+     Wiek_tab[11] := ">90";
+     dlgBindListBox(DLG, "Wiek", Wiek_tab, Wiek_index);  
+     dlgExecute( DLG, Ret);
    end;
  
       run;
