@@ -1,0 +1,403 @@
+knowledge base nazwa
+
+ sources
+ end;
+
+ facets
+     
+     single yes;
+        //LICZBY
+     wiek:
+     val range<1,100>;
+     plec:
+     val oneof {"m", "k"};
+     tempCiala:
+     query "Podaj temperaturÍ cia≥a?"
+     unit "∞C"
+     val range <35.1, 41.5>;
+   //  param{ NORMALNA = 36.7, STAN_PODGOR = 37.5 }  ;
+     
+    
+     
+          //B”LE
+  
+          
+     bol_gardla:
+     query "Czy odczuwasz bÛl gard≥a?"
+     val oneof {"tak", "nie"};
+     
+     bol_glowy:
+     query "Czy odczuwasz bÛl g≥owy?"
+     val oneof {"tak", "nie"};
+
+     bol_brzucha:
+     query "Czy odczuwasz bÛl brzucha?"
+     val oneof {"tak", "nie"};
+
+     bol_miesniowy:
+     query "Czy odczuwasz bÛl miÍúniowy?"
+     val oneof {"tak", "nie"};
+
+     bol_kostno_stawowy:
+     query "Czy odczuwasz bÛl koúci lub stawÛw?"
+     val oneof {"tak", "nie"};
+
+     bol_wezlow_chlonnych_szyi:
+     query "Czy odczuwasz bÛl wÍz≥Ûw ch≥onnych?"
+     val oneof {"tak", "nie"};
+
+     bol_w_klatce_piersiowej:
+     val oneof {"tak", "nie"};
+  
+     
+     
+     
+     //STANY
+     
+     palacz:      
+     query "Czy jesteú na≥ogowym palaczem?"
+     val oneof {"tak", "nie"};
+     
+     utrata_apetytu:
+     query "Czy odczuwasz brak apetytu?"
+     val oneof {"tak", "nie"};
+
+     zle_samopoczucie:
+     query "Czy miewasz z≥e samopoczucie?"
+     val oneof {"tak", "nie"};
+
+     krwioplucie:
+     query "Czy plujesz krwiπ?"
+     val oneof {"tak", "nie"};
+
+     dreszcze:
+     query "Czy odczuwasz dreszcze?"
+     val oneof {"tak", "nie"}; 
+
+     swiatlowstret:
+     query "Czy odczuwasz úwiat≥owstrÍt?"
+     val oneof {"tak", "nie"};
+
+     nudnosci_wymioty:
+     query "Czy miewasz nudnoúci lub wymioty?"
+     val oneof {"tak", "nie"};
+     
+     dusznosc:
+     query "Czy odczuwasz dusznoúÊ?"
+     val oneof {"tak", "nie"};
+
+     ucisk_w_klatce_piersiowej:
+     query "Czy odczuwasz ucisk w klatce piersiowej?"
+     val oneof {"tak", "nie"};
+     
+     uposledzenia_wechu:
+     query "Czy odczuwasz upoúledzenie wÍchu?"
+     val oneof {"tak", "nie"};
+     
+     pieczenie_spojowek:           //OCZY
+     query "Czy odczuwasz pieczenie spojÛwek?"
+     val oneof {"tak", "nie"};
+
+     obrzek_powiek:  
+     query "Czy odczuwasz obrzÍk powiek?"   
+     val oneof {"tak", "nie"};
+     
+     stridor_úwist_krtaniowy:     //to samo?
+     query "Czy wystÍpuje úwist krtaniowy?"
+     val oneof {"tak", "nie"};
+
+//     swiszenie: 
+//     query "Czy wystÍpuje charczenie przy wdychaniu i wydychaniu?"
+//     val oneof {"tak", "nie"}  
+
+     charczenie_przy_wdychaniu_i_wydychaniu: 
+     query "Czy wystÍpuje charczenie przy wdychaniu i wydychaniu?"
+     val oneof {"tak", "nie"};
+     
+     swiad:
+     query "Czy swÍdzi CiÍ w gardle?"
+     val oneof {"tak", "nie"};
+
+     zaburzenia_snu:
+     query "Czy wystÍpujπ zaburzenia snu?"
+     val oneof {"tak", "nie"};
+
+     afonia_aka_zaburzenia_sluchu:
+     query "Czy wystÍpuje afonia?"
+     val oneof {"tak", "nie"};
+
+     bladosc:
+     query "Czy stajesz siÍ blady?"
+     val oneof {"tak", "nie"};
+
+     nocne_poty:
+     query "Czy wystÍpujπ nocne poty?"
+     val oneof {"tak", "nie"};
+
+     utrata_masy_ciala:
+     query "Czy masa cia≥a spada?"
+     val oneof {"tak", "nie"};
+
+     guz_szyi:
+     query "Czy wystÍpujπ guzy na szyi?"
+     val oneof {"tak", "nie"};
+     palce_paleczkowate:
+
+     query "Czy wystÍpujπ pa≥eczkowate palce?"
+     val oneof {"tak", "nie"};
+
+     sinica:
+     query "Czy wystÍpuje sinica?"
+     val oneof {"tak", "nie"};
+
+     przyspieszony_oddech:
+     query "Czy wystÍpuje przyspieszony oddech?"
+     val oneof {"tak", "nie"};
+
+     wydluzony_wydech:
+     query "Czy wystÍpuje wyd≥uøony wydech?"
+     val oneof {"tak", "nie"};
+
+     wzdecia:
+     query "Czy wystÍpujπ wzdÍcia?"
+     val oneof {"tak", "nie"};
+
+     obfite_i_cuhnace_stolce:	//A CO TO MA WSP”LNEGO Z CHOROBAMI DR”G ODDECHOWYCH? :D
+     query "Czy wystÍpujπ obfite i cuchnπce stolce?"
+     val oneof {"tak", "nie", "bardzo chÍtnie", "nie, dziÍkujÍ"};
+
+     
+     
+                  //NOS
+     kichanie:
+     query "Czy wystÍpuje kichanie?"
+     val oneof {"tak", "nie"}; //albo skala?
+
+     zatkany_nos:
+     query "Czy nos jest zatkany?"
+     val oneof {"tak", "nie"};
+
+     wydzielina_z_nosa:
+     query "Czy z nosa wydostaje siÍ wydzielina?"
+     val oneof {"tak", "nie"};
+
+     czy_splywa_do_gardla:
+     query "Czy wystÍpuje sp≥ywanie wydzieliny z nosa do gard≥a?"
+     val oneof {"tak", "nie"};
+
+     wyciek_plynnej_wydzieliny_z_nosa:
+     //single no;
+     query "Rodzaj wydzieliny z nosa?"
+     val someof {"wodnista", "sluzowa", "ropna", "sluzowo_ropna"};
+
+     zaczerwienienie_obrzek_blony_sluzowej_nosa:
+     query "Czy wystÍpuje zaczerwienienie lub obrzÍk b≥ony úluzowej nosa?"
+     val oneof {"tak", "nie"};
+                                                                  
+     //GARD£O
+     
+     chrypka:
+     query "Czy wystÍpuje chrypka?"
+     val oneof {"tak", "nie"};
+
+     chrypka_przewlekla:                          //Troche skomplikowane to jak dla mnie
+     query "Czy wystÍpuje przewlek≥a chrypka?"
+     val oneof {"tak", "nie", "nie wiem"};
+
+     kaszel:
+     query "Czy wystÍpuje kaszel?"
+     val oneof {"tak", "nie"};
+
+     wykrztuszanie_ropnej_wydzieliny:
+     query "Czy wystÍpuje wykrzsztuszanie ropnej wydzieliny?"
+     val oneof {"tak", "nie"};
+
+     zaczerwienienie_obrzek_blony_sluzowej_gard≥a_i_migda≥kow:
+     query "Czy wystÍpuje obrzÍk lub zaczerwienienie gard≥a i migda≥kÛw?"
+     val oneof {"tak", "nie"};
+
+     wysiek_na_migdalkach:
+     query "Czy wystÍpuje wysiek na migda≥kach?"
+     val oneof {"tak", "nie"};
+
+     szaro_biale_naloty_w_gardle:
+     query "Czy wystÍpuje szaro-bia≥y nalot w gardle?"
+     val oneof {"tak", "nie"};
+
+     wybroczyny_lub_pecherzyki_na_blonie_sluzowej:
+     query "Czy wystÍpujπ wybroczyny lub pÍcherzyki na b≥onie úluzowej?"
+     val oneof {"tak", "nie", "nie wiem"};
+
+     dyskomfort_przy_mowieniu_lub_polykaniu:
+     query "Czy wystÍpuje dyskomfort przy mrowieniu lub po≥ykaniu?"
+     val oneof {"tak", "nie"};
+
+     powiekszenie_wezlow_chlonnych_szyi:
+     query "Czy wystÍpuje powiÍkszenie wÍz≥Ûw ch≥onnych szyi?"
+	 val oneof {"tak", "nie", "nie wiem"};
+     
+     
+     choroba:
+     val someof {
+         "ZAPALENIE ZATOK PRZYNOSOWYCH",
+         "OSTRE ZAPALENIE GARD£A",
+         "ZAPALENIE KRTANI",
+         "RAK KRTANI",
+         "OSTRE ZAPALENIE OSKRZELI",
+         "ASTMA",
+         "ROZSTRZENIE OSKRZELI",
+         "MUKOWISCYDOZA",
+         "ZAPALENIE P£UC",
+         "OSTRE ALERGICZNE ZAPALENIE P CHERZYK”W P£UCNYCH",
+         "GRUèLICA P£UCNA"
+     };
+     
+ end;
+
+ rules
+	choroba = "ZAPALENIE ZATOK PRZYNOSOWYCH" if
+     	    //    STAN_PODGOR = 37.5 &       //tu z temperatura pokombinowac
+	        (czy_splywa_do_gardla = "tak" &
+		(wyciek_plynnej_wydzieliny_z_nosa = "wodnista" |
+		wyciek_plynnej_wydzieliny_z_nosa = "sluzowa" |
+		wyciek_plynnej_wydzieliny_z_nosa = "ropna" |
+		wyciek_plynnej_wydzieliny_z_nosa = "sluzowo_ropna")) &
+		zatkany_nos = "tak" &
+		uposledzenia_wechu = "tak" &
+		bol_glowy = "tak" &
+		
+		obrzek_powiek = "tak";
+	
+    choroba = "OSTRE ZAPALENIE GARD£A" if
+		zle_samopoczucie = "tak" &
+		bol_gardla = "tak" &
+		nudnosci_wymioty = "tak" &
+		//tempCiala = <38.1, 41.5> &
+		(zaczerwienienie_obrzek_blony_sluzowej_gard≥a_i_migda≥kow = "tak" |
+		wysiek_na_migdalkach = "tak" |
+		szaro_biale_naloty_w_gardle = "tak") &
+		wybroczyny_lub_pecherzyki_na_blonie_sluzowej = "tak" &
+		powiekszenie_wezlow_chlonnych_szyi = "tak" &
+		bol_wezlow_chlonnych_szyi = "tak";
+	
+    choroba = "ZAPALENIE KRTANI" if
+		palacz = "tak" &
+		zle_samopoczucie = "tak" &
+		dyskomfort_przy_mowieniu_lub_polykaniu = "tak" &
+		kaszel = "tak" &
+		chrypka = "tak" &
+		stridor_úwist_krtaniowy = "tak";
+	
+    choroba = "RAK KRTANI" if
+		palacz = "tak" &
+		chrypka_przewlekla = "tak" &
+		bol_gardla = "tak" &
+		guz_szyi = "tak" &
+		powiekszenie_wezlow_chlonnych_szyi = "tak";
+	
+    choroba = "OSTRE ZAPALENIE OSKRZELI" if
+		//tempCiala = <38.1, 41.5> &
+		bol_miesniowy = "tak" &
+		kaszel = "tak" &
+		wykrztuszanie_ropnej_wydzieliny = "tak";
+//		swiszenie = "tak";
+	
+    choroba = "ASTMA" if
+		dusznosc = "tak" &
+		ucisk_w_klatce_piersiowej = "tak" &
+		kaszel = "tak" &
+		zatkany_nos = "tak" &
+		wydluzony_wydech = "tak";       //		swiszenie = "tak" &
+	
+    choroba = "ROZSTRZENIE OSKRZELI" if //DOKONCZYC
+		kaszel = "tak" &
+    	krwioplucie = "tak" & //czasami
+        //goraczka
+        sinica = "tak" &
+        palce_paleczkowate =  "tak";// &
+
+
+    choroba = "MUKOWISCYDOZA" if
+		kaszel = "tak" &
+        krwioplucie = "tak" &
+        dusznosc = "tak" &
+        przyspieszony_oddech = "tak" &
+        zatkany_nos = "tak" &
+        obfite_i_cuhnace_stolce = "tak" &
+        wzdecia = "tak" &
+        bol_brzucha = "tak" &
+        utrata_masy_ciala = "tak" &
+        sinica = "tak" &
+        palce_paleczkowate = "tak" &
+        wykrztuszanie_ropnej_wydzieliny = "tak";
+	
+    choroba = "ZAPALENIE P£UC" if
+		dreszcze = "tak" &
+        nocne_poty = "tak" &
+        bol_w_klatce_piersiowej = "tak" &
+        kaszel = "tak" &
+        (wykrztuszanie_ropnej_wydzieliny = "tak" | wykrztuszanie_ropnej_wydzieliny = "nie") & //czasami
+        (dusznosc = "tak"  | dusznosc = "nie") &
+        (przyspieszony_oddech = "tak" | przyspieszony_oddech = "nie") ;
+	
+    choroba = "OSTRE ALERGICZNE ZAPALENIE P CHERZYK”W P£UCNYCH" if
+		kaszel = "tak" &
+	   //goraczka
+       dusznosc = "tak" &
+       dreszcze = "tak" &
+       bol_kostno_stawowy = "tak" &
+       zle_samopoczucie = "tak" &
+       przyspieszony_oddech = "tak";
+    
+    choroba = "GRUèLICA P£UCNA" if
+		nocne_poty = "tak" &
+        //goraczka
+        utrata_apetytu = "tak" &
+        utrata_masy_ciala = "tak" &
+        nocne_poty = "tak" &
+        zle_samopoczucie = "tak" &
+        wykrztuszanie_ropnej_wydzieliny = "tak" &
+        kaszel = "tak" &
+        krwioplucie = "tak"; //czasami - rozmyta
+ end;//rules
+
+// facts
+// end;
+
+ control
+  int Palacz, Wiek;
+  float Temperatura;
+  char Plec[2];
+  int RET;
+  Plec[0]:="m";
+  Plec[1]:="k";
+  
+
+ 
+      run;
+      setAppWinTitle( "Diagnozowanie chorÛb gÛrnych drÛg oddechowych" );
+      
+      menu "Opcje"
+   1. "Diagnoza"
+   2. "Wyjúcie"
+      case 1:
+         neditBox (0,0,1,100, "Podaj wiek", Wiek);
+	 addFact(_,wiek,Wiek);
+	 neditBox (0,0,35.1,41.5, "Podaj temp ciala", Temperatura);
+	 addFact(_,tempCiala,Temperatura);
+         slistBox(0,0,"Plec","Wybierz plec:",Plec,2,RET);
+         if(RETURN==1)
+         begin 
+         	messageBox(0,0,"Twoj wybor: ",Plec[RET]);
+	 addFact(_,plec,Plec[RET]);
+  	 end;
+         goal("choroba=X");
+      case 2:
+       exit; 
+     end;
+
+        
+	
+		
+ end;//control
+end;//knowledge

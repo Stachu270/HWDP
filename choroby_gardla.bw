@@ -8,11 +8,11 @@ knowledge base nazwa
      single yes;
         //LICZBY
      wiek:
-     val range<1,100>;
+     val oneof {"1-5", "6-10", "11-15", "16-20", "21-30", "31-40", "41-50",
+               "51-60", "61-70", "71-80", "81-90", ">90"};
      plec:
      val oneof {"m", "k"};
      tempCiala:
-     query "Podaj temperaturê cia³a?"
      unit "°C"
      val range <35.1, 41.5>;
    //  param{ NORMALNA = 36.7, STAN_PODGOR = 37.5 }  ;
@@ -54,8 +54,7 @@ knowledge base nazwa
      
      //STANY
      
-     palacz:      
-     query "Czy jesteœ na³ogowym palaczem?"
+     palacz:
      val oneof {"tak", "nie"};
      
      utrata_apetytu:
@@ -365,20 +364,22 @@ knowledge base nazwa
 // end;
 
  control
-  int Plec, Palacz, Wiek_index;
+  int Plec;
+  int Palacz;
+  char Wiek_wybor;
+  char Ocena;
   char Temperatura;
   char Wiek_tab[12];
 
    function pokaBydlaka
    begin
      int DLG, Ret;
-     Plec := 0;
-     Palacz := 0;
-     Wiek_index := 0;
-     Temperatura := "";
      dlgCreate( DLG, "", "dialog.dlg" );
+     Temperatura := "36.6";
      dlgBindEdit(DLG, "Temp", Temperatura);
+     Plec := 0;
      dlgBindRadioButton(DLG, "Plec", Plec);
+     Palacz := 0;
      dlgBindCheckBox(DLG, "Palacz", Palacz);
      Wiek_tab[0] := "1-5";
      Wiek_tab[1] := "6-10";
@@ -392,8 +393,34 @@ knowledge base nazwa
      Wiek_tab[9] := "71-80";
      Wiek_tab[10] := "81-90";
      Wiek_tab[11] := ">90";
-     dlgBindListBox(DLG, "Wiek", Wiek_tab, Wiek_index);  
+     Wiek_wybor := "21-30";
+     dlgBindComboBox(DLG, "Wiek", Wiek_tab, Wiek_wybor);  
      dlgExecute( DLG, Ret);
+     
+     float Tee;
+     ston(Temperatura, Tee);
+     addFact(_, tempCiala, Tee);
+     
+     if (Plec == 0)
+     begin
+         addFact(_, plec, "k");
+     end
+     else
+     begin
+         addFact(_, plec, "m");
+     end;
+     
+     if (Palacz == 0)
+     begin
+         addFact(_, palacz, "nie");
+     end
+     else
+     begin
+         addFact(_, palacz, "tak");
+     end;
+     
+     addFact(_, wiek, Wiek_wybor);
+     
    end;
  
       run;
@@ -404,7 +431,7 @@ knowledge base nazwa
    2. "Wyjœcie"
       case 1:
          pokaBydlaka;
-         goal("choroba=X");
+         goal("choroba = Ocena");
       case 2:
        exit; 
      end;
