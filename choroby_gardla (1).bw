@@ -102,7 +102,7 @@ knowledge base nazwa
      query "Czy odczuwasz obrzêk powiek?"   
      val oneof {"tak", "nie"};
      
-     stridor_œwist_krtaniowy:     //to samo?
+     stridor_swist_krtaniowy:     //to samo?
      query "Czy wystêpuje œwist krtaniowy?"
      val oneof {"tak", "nie"};
 
@@ -141,8 +141,8 @@ knowledge base nazwa
      guz_szyi:
      query "Czy wystêpuj¹ guzy na szyi?"
      val oneof {"tak", "nie"};
+     
      palce_paleczkowate:
-
      query "Czy wystêpuj¹ pa³eczkowate palce?"
      val oneof {"tak", "nie"};
 
@@ -185,14 +185,14 @@ knowledge base nazwa
      query "Czy wystêpuje sp³ywanie wydzieliny z nosa do gard³a?"
      val oneof {"tak", "nie"};
 
-     wyciek_plynnej_wydzieliny_z_nosa:
+     wyciek_plynnej_wydzieliny_z_nosa: //TO POMIJAMY, niczemu nie s³u¿y
      //single no;
      query "Rodzaj wydzieliny z nosa?"
      val someof {"wodnista", "sluzowa", "ropna", "sluzowo_ropna"};
 
      zaczerwienienie_obrzek_blony_sluzowej_nosa:
      query "Czy wystêpuje zaczerwienienie lub obrzêk b³ony œluzowej nosa?"
-     val oneof {"tak", "nie"};
+     val oneof {"tak", "nie", "nie wiem"};
                                                                   
      //GARD£O
      
@@ -212,23 +212,23 @@ knowledge base nazwa
      query "Czy wystêpuje wykrzsztuszanie ropnej wydzieliny?"
      val oneof {"tak", "nie"};
 
-     zaczerwienienie_obrzek_blony_sluzowej_gard³a_i_migda³kow:
+     zaczerwienienie_obrzek_blony_sluzowej:
      query "Czy wystêpuje obrzêk lub zaczerwienienie gard³a i migda³ków?"
-     val oneof {"tak", "nie"};
+     val oneof {"tak", "nie", "nie wiem"};
 
      wysiek_na_migdalkach:
      query "Czy wystêpuje wysiek na migda³kach?"
-     val oneof {"tak", "nie"};
+     val oneof {"tak", "nie", "nie wiem"};
 
      szaro_biale_naloty_w_gardle:
      query "Czy wystêpuje szaro-bia³y nalot w gardle?"
      val oneof {"tak", "nie"};
 
-     wybroczyny_lub_pecherzyki_na_blonie_sluzowej:
+     wybroczyny_lub_pecherzyki:
      query "Czy wystêpuj¹ wybroczyny lub pêcherzyki na b³onie œluzowej?"
      val oneof {"tak", "nie", "nie wiem"};
 
-     dyskomfort_przy_mowieniu_lub_polykaniu:
+     dyskomfort_przy_mowieniu:
      query "Czy wystêpuje dyskomfort przy mrowieniu lub po³ykaniu?"
      val oneof {"tak", "nie"};
 
@@ -273,20 +273,20 @@ knowledge base nazwa
 		bol_gardla = "tak" &
 		nudnosci_wymioty = "tak" &
 		//tempCiala = <38.1, 41.5> &
-		(zaczerwienienie_obrzek_blony_sluzowej_gard³a_i_migda³kow = "tak" |
+		(zaczerwienienie_obrzek_blony_sluzowej = "tak" |
 		wysiek_na_migdalkach = "tak" |
 		szaro_biale_naloty_w_gardle = "tak") &
-		wybroczyny_lub_pecherzyki_na_blonie_sluzowej = "tak" &
+		wybroczyny_lub_pecherzyki = "tak" &
 		powiekszenie_wezlow_chlonnych_szyi = "tak" &
 		bol_wezlow_chlonnych_szyi = "tak";
 	
     choroba = "ZAPALENIE KRTANI" if
 		palacz = "tak" &
 		zle_samopoczucie = "tak" &
-		dyskomfort_przy_mowieniu_lub_polykaniu = "tak" &
+		dyskomfort_przy_mowieniu = "tak" &
 		kaszel = "tak" &
 		chrypka = "tak" &
-		stridor_œwist_krtaniowy = "tak";
+		stridor_swist_krtaniowy = "tak";
 	
     choroba = "RAK KRTANI" if
 		palacz = "tak" &
@@ -365,15 +365,252 @@ knowledge base nazwa
 // end;
 
  control
-  int Palacz, Wiek;
+         
+  function pokaBole
+     begin
+         char Stan[3], Dest;
+         Stan[0]:="tak";
+         Stan[1]:="nie";
+         Stan[2]:="nie wiem";
+         int STAN[7];
+         STAN[0]:=0; STAN[1]:=1; STAN[2]:=2; STAN[3]:=3; STAN[4]:=4; STAN[5]:=5; STAN[6]:=6; 
+         char Nazwy[7], IDs[7];
+         Nazwy[0]:=bol_gardla;
+         Nazwy[1]:=bol_glowy;
+         Nazwy[2]:=bol_miesniowy;
+         Nazwy[3]:=bol_brzucha;
+         Nazwy[4]:=bol_kostno_stawowy;
+         Nazwy[5]:=bol_wezlow_chlonnych_szyi;
+         Nazwy[6]:=bol_w_klatce_piersiowej;
+         IDs[0]:=gardlo;
+         IDs[1]:=glowa;
+         IDs[2]:=miesnie;
+         IDs[3]:=brzuch;
+         IDs[4]:=wezly;
+         IDs[5]:=klatka;
+         IDs[6]:=kosci;
+         
+         int DLG_bole, RET, I;
+        dlgCreate(DLG_bole, "", "bole.dlg");
+	 for I:=0 to 6 step 1
+           begin
+             dlgBindRadioButton(DLG_bole, IDs[I], STAN[I]);
+           end;
+        dlgExecute(DLG_bole, RET); 
+     
+         for I:=0 to 6 step 1
+           begin
+              if (STAN[I] == 0) begin
+                addFact(_,Nazwy[I], Stan[0]); 
+              end
+              else begin
+                if(STAN[I] == 1) begin addFact(_,Nazwy[I], Stan[1]); end; 
+              end;
+           end;
+        // for I :=0 to 6 step 1   //for debugging
+        //   begin
+        //     catchFact( Dest, _,Nazwy[I],_ , 0);   // strona 12
+        //     messageBox(0,0,"stan wartosci ", Dest);
+        //   end; 
+     end; //pokaBole
+
+  function pokaStany1
+     begin
+         char Stan[3], Dest;
+         Stan[0]:="tak";
+         Stan[1]:="nie";
+         Stan[2]:="nie wiem";
+         int STAN[16];
+         STAN[0]:=0; STAN[1]:=1; STAN[2]:=2; STAN[3]:=3; STAN[4]:=4; STAN[5]:=5; STAN[6]:=6; STAN[7]:=7; STAN[8]:=8; 
+         STAN[9]:=9; STAN[10]:=10; STAN[11]:=11; STAN[12]:=12; STAN[13]:=13; STAN[14]:=14; STAN[15]:=15;
+         char Nazwy[16];
+         
+         Nazwy[0]:=zle_samopoczucie;
+         Nazwy[1]:=utrata_apetytu;
+         Nazwy[2]:=krwioplucie;
+         Nazwy[3]:=dreszcze;
+         Nazwy[4]:=swiatlowstret;
+         Nazwy[5]:=nudnosci_wymioty;
+         Nazwy[6]:=dusznosc;
+         Nazwy[7]:=ucisk_w_klatce_piersiowej;
+         Nazwy[8]:=uposledzenia_wechu;
+         Nazwy[9]:=swiad;
+         Nazwy[10]:=zaburzenia_snu;
+         Nazwy[11]:=afonia_aka_zaburzenia_sluchu;
+         Nazwy[12]:=pieczenie_spojowek;
+         Nazwy[13]:=obrzek_powiek;
+         Nazwy[14]:=stridor_swist_krtaniowy;
+         Nazwy[15]:=nocne_poty;
+         
+         int DLG_stany1, RET, I;
+        dlgCreate(DLG_stany1, "", "stany_1.dlg");
+	 for I:=0 to 15 step 1
+           begin
+             dlgBindRadioButton(DLG_stany1, Nazwy[I], STAN[I]);
+           end;
+        dlgExecute(DLG_stany1, RET); 
+     
+         for I:=0 to 15 step 1
+           begin
+              if (STAN[I] == 0) begin
+                addFact(_,Nazwy[I], Stan[0]); 
+              end
+              else begin
+                if(STAN[I] == 1) begin addFact(_,Nazwy[I], Stan[1]); end; 
+              end;
+           end;
+         for I :=0 to 15 step 1   //for debugging
+           begin
+             catchFact( Dest, _,Nazwy[I],_ , 0);   // strona 12
+             messageBox(0,0,"stan wartosci ", Dest);
+           end; 
+     end; //pokaStany1
+ 
+     function pokaStany2
+     begin
+         char Stan[3], Dest;
+         Stan[0]:="tak";
+         Stan[1]:="nie";
+         Stan[2]:="nie wiem";
+         int STAN[10];
+         STAN[0]:=0; STAN[1]:=1; STAN[2]:=2; STAN[3]:=3; STAN[4]:=4; STAN[5]:=5; STAN[6]:=6; STAN[7]:=7; STAN[8]:=8; 
+         STAN[9]:=9;
+         char Nazwy[10];
+         
+         Nazwy[0]:=charczenie_przy_wdychaniu_i_wydychaniu;
+         Nazwy[1]:=bladosc;
+         Nazwy[2]:=utrata_masy_ciala;
+         Nazwy[3]:=guz_szyi;
+         Nazwy[4]:=palce_paleczkowate;
+         Nazwy[5]:=sinica;
+         Nazwy[6]:=przyspieszony_oddech;
+         Nazwy[7]:=wydluzony_wydech;
+         Nazwy[8]:=wzdecia;
+         Nazwy[9]:=obfite_i_cuhnace_stolce;
+         
+         int DLG_stany2, RET, I;
+        dlgCreate(DLG_stany2, "", "stany_2.dlg");
+	 for I:=0 to 9 step 1
+           begin
+             dlgBindRadioButton(DLG_stany2, Nazwy[I], STAN[I]);
+           end;
+        dlgExecute(DLG_stany2, RET); 
+     
+         for I:=0 to 9 step 1
+           begin
+              if (STAN[I] == 0) begin
+                addFact(_,Nazwy[I], Stan[0]); 
+              end
+              else begin
+                if(STAN[I] == 1) begin addFact(_,Nazwy[I], Stan[1]); end; 
+              end;
+           end;
+         for I :=0 to 9 step 1   //for debugging
+           begin
+             catchFact( Dest, _,Nazwy[I],_ , 0);   // strona 12
+             messageBox(0,0,"stan wartosci ", Dest);
+           end; 
+     end; //pokaStany2
+
+     function pokaNos
+     begin
+         char Stan[3], Dest;
+         Stan[0]:="tak";
+         Stan[1]:="nie";
+         Stan[2]:="nie wiem";
+         int STAN[5];
+         STAN[0]:=0; STAN[1]:=1; STAN[2]:=2; STAN[3]:=3; STAN[4]:=4; 
+         char Nazwy[5];
+         
+         Nazwy[0]:=kichanie;
+         Nazwy[1]:=zatkany_nos;
+         Nazwy[2]:=wydzielina_z_nosa;
+         Nazwy[3]:=czy_splywa_do_gardla;
+         Nazwy[4]:=zaczerwienienie_obrzek_blony_sluzowej_nosa;
+
+
+         int DLG_nos, RET, I;
+        dlgCreate(DLG_nos, "", "nos.dlg");
+	 for I:=0 to 4 step 1
+           begin
+             dlgBindRadioButton(DLG_nos, Nazwy[I], STAN[I]);
+           end;
+        dlgExecute(DLG_nos, RET); 
+     
+         for I:=0 to 4 step 1
+           begin
+              if (STAN[I] == 0) begin
+                addFact(_,Nazwy[I], Stan[0]); 
+              end
+              else begin
+                if(STAN[I] == 1) begin addFact(_,Nazwy[I], Stan[1]); end; 
+              end;
+              if(STAN[I] == 2) begin addFact(_,Nazwy[I], Stan[2]); end; 
+           end;
+         for I :=0 to 4 step 1   //for debugging
+           begin
+             catchFact( Dest, _,Nazwy[I],_ , 0);   // strona 12
+             messageBox(0,0,"stan wartosci ", Dest);
+           end; 
+     end; //pokaNos
+     
+     function pokaGardlo
+     begin
+         char Stan[3], Dest;
+         Stan[0]:="tak";
+         Stan[1]:="nie";
+         Stan[2]:="nie wiem";
+         int STAN[10];
+         STAN[0]:=0; STAN[1]:=1; STAN[2]:=2; STAN[3]:=3; STAN[4]:=4; STAN[5]:=5; STAN[6]:=6; STAN[7]:=7; STAN[8]:=8; 
+         STAN[9]:=9;
+         char Nazwy[10];
+         
+         Nazwy[0]:=chrypka;
+         Nazwy[1]:=chrypka_przewlekla;
+         Nazwy[2]:=kaszel;
+         Nazwy[3]:=wykrztuszanie_ropnej_wydzieliny;
+         Nazwy[4]:=zaczerwienienie_obrzek_blony_sluzowej;
+         Nazwy[5]:=wysiek_na_migdalkach;
+         Nazwy[6]:=szaro_biale_naloty_w_gardle;
+         Nazwy[7]:=wybroczyny_lub_pecherzyki;
+         Nazwy[8]:=dyskomfort_przy_mowieniu;
+         Nazwy[9]:=powiekszenie_wezlow_chlonnych_szyi;
+
+
+         int DLG_gardlo, RET, I;
+        dlgCreate(DLG_gardlo, "", "gardlo.dlg");
+	 for I:=0 to 9 step 1
+           begin
+             dlgBindRadioButton(DLG_gardlo, Nazwy[I], STAN[I]);
+           end;
+        dlgExecute(DLG_gardlo, RET); 
+     
+         for I:=0 to 9 step 1
+           begin
+              if (STAN[I] == 0) begin
+                addFact(_,Nazwy[I], Stan[0]); 
+              end
+              else begin
+                if(STAN[I] == 1) begin addFact(_,Nazwy[I], Stan[1]); end; 
+              end;
+              if(STAN[I] == 2) begin addFact(_,Nazwy[I], Stan[2]); end; 
+           end;
+         for I :=0 to 9 step 1   //for debugging
+           begin
+             catchFact( Dest, _,Nazwy[I],_ , 0);   // strona 12
+             messageBox(0,0,"stan wartosci ", Dest);
+           end; 
+     end; //pokaGardlo
+ 
+  int Palacz, Wiek, DLG_bole, DLG_stany1, DLG_stany2;
   float Temperatura;
-  char Plec[2];
+  char Plec[2], Dest;
   int RET;
   Plec[0]:="m";
   Plec[1]:="k";
   
-
  
+              
       run;
       setAppWinTitle( "Diagnozowanie chorób górnych dróg oddechowych" );
       
@@ -381,6 +618,11 @@ knowledge base nazwa
    1. "Diagnoza"
    2. "Wyjœcie"
       case 1:
+         pokaNos;
+	 pokaGardlo;
+         pokaStany2;
+         pokaStany1;
+         pokaBole;
          neditBox (0,0,1,100, "Podaj wiek", Wiek);
 	 addFact(_,wiek,Wiek);
 	 neditBox (0,0,35.1,41.5, "Podaj temp ciala", Temperatura);
@@ -391,6 +633,8 @@ knowledge base nazwa
          	messageBox(0,0,"Twoj wybor: ",Plec[RET]);
 	 addFact(_,plec,Plec[RET]);
   	 end;
+	 
+	 
          goal("choroba=X");
       case 2:
        exit; 
