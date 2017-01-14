@@ -430,7 +430,7 @@ knowledge base nazwa
      value(przyspieszony_oddech, Objawy[21]);
      value(wydluzony_wydech, Objawy[22]);
      value(wzdecia, Objawy[23]);
-     value(obfite_i_cuhnace_stolce, Objawy[24]);
+   //  value(obfite_i_cuhnace_stolce, Objawy[24]);
                     
      value(zle_samopoczucie, Objawy[25]);
      value(utrata_apetytu, Objawy[26]);
