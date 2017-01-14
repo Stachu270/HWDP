@@ -827,8 +827,7 @@ knowledge base nazwa
          Stan[2]:="nie wiem";
          int STAN[10];
          STAN[0]:=0; STAN[1]:=1; STAN[2]:=2; STAN[3]:=3; STAN[4]:=4; STAN[5]:=5; STAN[6]:=6; STAN[7]:=7; STAN[8]:=8; 
-         STAN[9]:=9;
-         char Nazwy[10];
+         char Nazwy[9];
          
          Nazwy[0]:=charczenie_przy_wdychaniu_i_wydychaniu;
          Nazwy[1]:=bladosc;
@@ -839,17 +838,17 @@ knowledge base nazwa
          Nazwy[6]:=przyspieszony_oddech;
          Nazwy[7]:=wydluzony_wydech;
          Nazwy[8]:=wzdecia;
-         Nazwy[9]:=obfite_i_cuhnace_stolce;
+         //Nazwy[9]:=obfite_i_cuhnace_stolce;
          
          int DLG_stany2, RET, I;
         dlgCreate(DLG_stany2, "", "stany_2.dlg");
-	 for I:=0 to 9 step 1
+	 for I:=0 to 8 step 1
            begin
              dlgBindRadioButton(DLG_stany2, Nazwy[I], STAN[I]);
            end;
         dlgExecute(DLG_stany2, RET); 
      
-         for I:=0 to 9 step 1
+         for I:=0 to 8 step 1
            begin
               if (STAN[I] == 0) begin
                 addFact(_,Nazwy[I], Stan[0]); 
@@ -858,7 +857,7 @@ knowledge base nazwa
                 if(STAN[I] == 1) begin addFact(_,Nazwy[I], Stan[1]); end; 
               end;
            end;
-     //    for I :=0 to 9 step 1   //for debugging
+     //    for I :=0 to 8 step 1   //for debugging
      //      begin
      //        catchFact( Dest, _,Nazwy[I],_ , 0);   // strona 12
      //        messageBox(0,0,"stan wartosci ", Dest);
