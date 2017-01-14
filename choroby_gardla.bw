@@ -5,7 +5,7 @@ knowledge base nazwa
 
  facets
      
-     single yes;
+     //single yes;
         //LICZBY
      wiek:
      val oneof {"1-5", "6-10", "11-15", "16-20", "21-30", "31-40", "41-50",
@@ -13,9 +13,8 @@ knowledge base nazwa
      plec:
      val oneof {"m", "k"};
      tempCiala:
-     unit "°C"
+     //unit "°C"
      val range <35.1, 41.5>;
-   //  param{ NORMALNA = 36.7, STAN_PODGOR = 37.5 }  ;
      
     
      
@@ -54,7 +53,8 @@ knowledge base nazwa
      
      //STANY
      
-     palacz:
+     palacz:      
+     query "Czy jesteœ na³ogowym palaczem?"
      val oneof {"tak", "nie"};
      
      utrata_apetytu:
@@ -101,7 +101,7 @@ knowledge base nazwa
      query "Czy odczuwasz obrzêk powiek?"   
      val oneof {"tak", "nie"};
      
-     stridor_œwist_krtaniowy:     //to samo?
+     stridor_swist_krtaniowy:     //to samo?
      query "Czy wystêpuje œwist krtaniowy?"
      val oneof {"tak", "nie"};
 
@@ -140,8 +140,8 @@ knowledge base nazwa
      guz_szyi:
      query "Czy wystêpuj¹ guzy na szyi?"
      val oneof {"tak", "nie"};
+     
      palce_paleczkowate:
-
      query "Czy wystêpuj¹ pa³eczkowate palce?"
      val oneof {"tak", "nie"};
 
@@ -184,14 +184,14 @@ knowledge base nazwa
      query "Czy wystêpuje sp³ywanie wydzieliny z nosa do gard³a?"
      val oneof {"tak", "nie"};
 
-     wyciek_plynnej_wydzieliny_z_nosa:
+     wyciek_plynnej_wydzieliny_z_nosa: //TO POMIJAMY, niczemu nie s³u¿y
      //single no;
      query "Rodzaj wydzieliny z nosa?"
      val someof {"wodnista", "sluzowa", "ropna", "sluzowo_ropna"};
 
      zaczerwienienie_obrzek_blony_sluzowej_nosa:
      query "Czy wystêpuje zaczerwienienie lub obrzêk b³ony œluzowej nosa?"
-     val oneof {"tak", "nie"};
+     val oneof {"tak", "nie", "nie wiem"};
                                                                   
      //GARD£O
      
@@ -211,23 +211,23 @@ knowledge base nazwa
      query "Czy wystêpuje wykrzsztuszanie ropnej wydzieliny?"
      val oneof {"tak", "nie"};
 
-     zaczerwienienie_obrzek_blony_sluzowej_gard³a_i_migda³kow:
+     zaczerwienienie_obrzek_blony_sluzowej:
      query "Czy wystêpuje obrzêk lub zaczerwienienie gard³a i migda³ków?"
-     val oneof {"tak", "nie"};
+     val oneof {"tak", "nie", "nie wiem"};
 
      wysiek_na_migdalkach:
      query "Czy wystêpuje wysiek na migda³kach?"
-     val oneof {"tak", "nie"};
+     val oneof {"tak", "nie", "nie wiem"};
 
      szaro_biale_naloty_w_gardle:
      query "Czy wystêpuje szaro-bia³y nalot w gardle?"
      val oneof {"tak", "nie"};
 
-     wybroczyny_lub_pecherzyki_na_blonie_sluzowej:
+     wybroczyny_lub_pecherzyki:
      query "Czy wystêpuj¹ wybroczyny lub pêcherzyki na b³onie œluzowej?"
      val oneof {"tak", "nie", "nie wiem"};
 
-     dyskomfort_przy_mowieniu_lub_polykaniu:
+     dyskomfort_przy_mowieniu:
      query "Czy wystêpuje dyskomfort przy mrowieniu lub po³ykaniu?"
      val oneof {"tak", "nie"};
 
@@ -253,126 +253,718 @@ knowledge base nazwa
      
  end;
 
- rules
-	choroba = "ZAPALENIE ZATOK PRZYNOSOWYCH" if
-     	    //    STAN_PODGOR = 37.5 &       //tu z temperatura pokombinowac
-	        (czy_splywa_do_gardla = "tak" &
-		(wyciek_plynnej_wydzieliny_z_nosa = "wodnista" |
-		wyciek_plynnej_wydzieliny_z_nosa = "sluzowa" |
-		wyciek_plynnej_wydzieliny_z_nosa = "ropna" |
-		wyciek_plynnej_wydzieliny_z_nosa = "sluzowo_ropna")) &
-		zatkany_nos = "tak" &
-		uposledzenia_wechu = "tak" &
-		bol_glowy = "tak" &
+// rules
+//	choroba = "ZAPALENIE ZATOK PRZYNOSOWYCH" if
+//     	    //    STAN_PODGOR = 37.5 &       //tu z temperatura pokombinowac
+//	        (czy_splywa_do_gardla = "tak" &
+//		(wyciek_plynnej_wydzieliny_z_nosa = "wodnista" |
+//		wyciek_plynnej_wydzieliny_z_nosa = "sluzowa" |
+//		wyciek_plynnej_wydzieliny_z_nosa = "ropna" |
+//		wyciek_plynnej_wydzieliny_z_nosa = "sluzowo_ropna")) &
+//		zatkany_nos = "tak" &
+//		uposledzenia_wechu = "tak" &
+//		bol_glowy = "tak" &
 		
-		obrzek_powiek = "tak";
+//		obrzek_powiek = "tak";
 	
-    choroba = "OSTRE ZAPALENIE GARD£A" if
-		zle_samopoczucie = "tak" &
-		bol_gardla = "tak" &
-		nudnosci_wymioty = "tak" &
-		//tempCiala = <38.1, 41.5> &
-		(zaczerwienienie_obrzek_blony_sluzowej_gard³a_i_migda³kow = "tak" |
-		wysiek_na_migdalkach = "tak" |
-		szaro_biale_naloty_w_gardle = "tak") &
-		wybroczyny_lub_pecherzyki_na_blonie_sluzowej = "tak" &
-		powiekszenie_wezlow_chlonnych_szyi = "tak" &
-		bol_wezlow_chlonnych_szyi = "tak";
+//    choroba = "OSTRE ZAPALENIE GARD£A" if
+//		zle_samopoczucie = "tak" &
+//		bol_gardla = "tak" &
+//		nudnosci_wymioty = "tak" &
+//		//tempCiala = <38.1, 41.5> &
+//		(zaczerwienienie_obrzek_blony_sluzowej = "tak" |
+//		wysiek_na_migdalkach = "tak" |
+//		szaro_biale_naloty_w_gardle = "tak") &
+//		wybroczyny_lub_pecherzyki = "tak" &
+//		powiekszenie_wezlow_chlonnych_szyi = "tak" &
+//		bol_wezlow_chlonnych_szyi = "tak";
 	
-    choroba = "ZAPALENIE KRTANI" if
-		palacz = "tak" &
-		zle_samopoczucie = "tak" &
-		dyskomfort_przy_mowieniu_lub_polykaniu = "tak" &
-		kaszel = "tak" &
-		chrypka = "tak" &
-		stridor_œwist_krtaniowy = "tak";
+//    choroba = "ZAPALENIE KRTANI" if
+//		palacz = "tak" &
+//		zle_samopoczucie = "tak" &
+//		dyskomfort_przy_mowieniu = "tak" &
+//		kaszel = "tak" &
+//		chrypka = "tak" &
+//		stridor_swist_krtaniowy = "tak";
 	
-    choroba = "RAK KRTANI" if
-		palacz = "tak" &
-		chrypka_przewlekla = "tak" &
-		bol_gardla = "tak" &
-		guz_szyi = "tak" &
-		powiekszenie_wezlow_chlonnych_szyi = "tak";
+//    choroba = "RAK KRTANI" if
+//		palacz = "tak" &
+//		chrypka_przewlekla = "tak" &
+//		bol_gardla = "tak" &
+//		guz_szyi = "tak" &
+//		powiekszenie_wezlow_chlonnych_szyi = "tak";
 	
-    choroba = "OSTRE ZAPALENIE OSKRZELI" if
-		//tempCiala = <38.1, 41.5> &
-		bol_miesniowy = "tak" &
-		kaszel = "tak" &
-		wykrztuszanie_ropnej_wydzieliny = "tak";
-//		swiszenie = "tak";
+//    choroba = "OSTRE ZAPALENIE OSKRZELI" if
+//		//tempCiala = <38.1, 41.5> &
+//		bol_miesniowy = "tak" &
+//		kaszel = "tak" &
+//		wykrztuszanie_ropnej_wydzieliny = "tak";
+//		swiszczenie = "tak";
 	
-    choroba = "ASTMA" if
-		dusznosc = "tak" &
-		ucisk_w_klatce_piersiowej = "tak" &
-		kaszel = "tak" &
-		zatkany_nos = "tak" &
-		wydluzony_wydech = "tak";       //		swiszenie = "tak" &
+//    choroba = "ASTMA" if
+//		dusznosc = "tak" &
+//		ucisk_w_klatce_piersiowej = "tak" &
+//		kaszel = "tak" &
+//		zatkany_nos = "tak" &
+//		wydluzony_wydech = "tak";       //		swiszenie = "tak" &
 	
-    choroba = "ROZSTRZENIE OSKRZELI" if //DOKONCZYC
-		kaszel = "tak" &
-    	krwioplucie = "tak" & //czasami
-        //goraczka
-        sinica = "tak" &
-        palce_paleczkowate =  "tak";// &
+//    choroba = "ROZSTRZENIE OSKRZELI" if //DOKONCZYC
+//		kaszel = "tak" &
+//    	krwioplucie = "tak" & //czasami
+//        //goraczka
+//        sinica = "tak" &
+//        palce_paleczkowate =  "tak";// &
 
 
-    choroba = "MUKOWISCYDOZA" if
-		kaszel = "tak" &
-        krwioplucie = "tak" &
-        dusznosc = "tak" &
-        przyspieszony_oddech = "tak" &
-        zatkany_nos = "tak" &
-        obfite_i_cuhnace_stolce = "tak" &
-        wzdecia = "tak" &
-        bol_brzucha = "tak" &
-        utrata_masy_ciala = "tak" &
-        sinica = "tak" &
-        palce_paleczkowate = "tak" &
-        wykrztuszanie_ropnej_wydzieliny = "tak";
+//    choroba = "MUKOWISCYDOZA" if
+//		kaszel = "tak" &
+//        krwioplucie = "tak" &
+//        dusznosc = "tak" &
+//        przyspieszony_oddech = "tak" &
+//        zatkany_nos = "tak" &
+//        obfite_i_cuhnace_stolce = "tak" &
+//        wzdecia = "tak" &
+//        bol_brzucha = "tak" &
+//        utrata_masy_ciala = "tak" &
+//        sinica = "tak" &
+//        palce_paleczkowate = "tak" &
+//        wykrztuszanie_ropnej_wydzieliny = "tak";
 	
-    choroba = "ZAPALENIE P£UC" if
-		dreszcze = "tak" &
-        nocne_poty = "tak" &
-        bol_w_klatce_piersiowej = "tak" &
-        kaszel = "tak" &
-        (wykrztuszanie_ropnej_wydzieliny = "tak" | wykrztuszanie_ropnej_wydzieliny = "nie") & //czasami
-        (dusznosc = "tak"  | dusznosc = "nie") &
-        (przyspieszony_oddech = "tak" | przyspieszony_oddech = "nie") ;
+//    choroba = "ZAPALENIE P£UC" if
+//		dreszcze = "tak" &
+//        nocne_poty = "tak" &
+//        bol_w_klatce_piersiowej = "tak" &
+//        kaszel = "tak" &
+//        (wykrztuszanie_ropnej_wydzieliny = "tak" | wykrztuszanie_ropnej_wydzieliny = "nie") & //czasami
+//        (dusznosc = "tak"  | dusznosc = "nie") &
+//        (przyspieszony_oddech = "tak" | przyspieszony_oddech = "nie") ;
 	
-    choroba = "OSTRE ALERGICZNE ZAPALENIE PÊCHERZYKÓW P£UCNYCH" if
-		kaszel = "tak" &
-	   //goraczka
-       dusznosc = "tak" &
-       dreszcze = "tak" &
-       bol_kostno_stawowy = "tak" &
-       zle_samopoczucie = "tak" &
-       przyspieszony_oddech = "tak";
+//    choroba = "OSTRE ALERGICZNE ZAPALENIE PÊCHERZYKÓW P£UCNYCH" if
+//		kaszel = "tak" &
+//	   //goraczka
+//       dusznosc = "tak" &
+//       dreszcze = "tak" &
+//       bol_kostno_stawowy = "tak" &
+//       zle_samopoczucie = "tak" &
+//       przyspieszony_oddech = "tak";
     
-    choroba = "GRULICA P£UCNA" if
-		nocne_poty = "tak" &
+//    choroba = "GRULICA P£UCNA" if
+//		nocne_poty = "tak" &
         //goraczka
-        utrata_apetytu = "tak" &
-        utrata_masy_ciala = "tak" &
-        nocne_poty = "tak" &
-        zle_samopoczucie = "tak" &
-        wykrztuszanie_ropnej_wydzieliny = "tak" &
-        kaszel = "tak" &
-        krwioplucie = "tak"; //czasami - rozmyta
- end;//rules
+//        utrata_apetytu = "tak" &
+//        utrata_masy_ciala = "tak" &
+//        nocne_poty = "tak" &
+//        zle_samopoczucie = "tak" &
+//        wykrztuszanie_ropnej_wydzieliny = "tak" &
+//        kaszel = "tak" &
+//        krwioplucie = "tak"; //czasami - rozmyta
+// end;//rules
 
 // facts
 // end;
 
  control
-  int Plec;
-  int Palacz;
-  char Wiek_wybor;
-  char Ocena;
-  char Temperatura;
-  char Wiek_tab[12];
+  
+  function value(char Lan, float &Val)
+  begin
+      char Pomoc, O, A, V;
+      catchFact(Pomoc, _, Lan, _, 0);
+      splitOAV(Pomoc, O, A, V);                             
+       
+      if (V = "tak")
+      begin
+         Val := 1;
+      end;
+      
+      if (V = "nie")
+      begin
+         Val := 0;
+      end;
+      
+      if (V = "nie wiem")
+      begin
+         Val := 0.5;
+      end;
+  end;
+  
+  function jakaChoroba
+  begin
+     float Objawy[48];
+     char Nazwy_chorob[11];
+     Nazwy_chorob[0] := "Zapalenie zatok przynosowych";  
+     Nazwy_chorob[1] := "Ostre zapalenie gard³a";
+     Nazwy_chorob[2] := "Zapalenie krtani";
+     Nazwy_chorob[3] := "Rak krtani";
+     Nazwy_chorob[4] := "Ostre zapalenie oskrzeli";
+     Nazwy_chorob[5] := "Astma";
+     Nazwy_chorob[6] := "Rozstrzenie oskrzeli";
+     Nazwy_chorob[7] := "Mukowiscydoza";
+     Nazwy_chorob[8] := "Zapalenie p³uc";
+     Nazwy_chorob[9] := "Ostre alergiczne zapalenie pêcherzyków p³ucnych";
+     Nazwy_chorob[10] := "GruŸlica p³ucna";
+     
+     
+     value(kichanie, Objawy[0]);
+     value(zatkany_nos, Objawy[1]);
+     value(wydzielina_z_nosa, Objawy[2]);
+     value(czy_splywa_do_gardla, Objawy[3]);
+     value(zaczerwienienie_obrzek_blony_sluzowej_nosa, Objawy[4]);
+     
+     value(chrypka, Objawy[5]);
+     value(chrypka_przewlekla, Objawy[6]);
+     value(kaszel, Objawy[7]);
+     value(wykrztuszanie_ropnej_wydzieliny, Objawy[8]);
+     value(zaczerwienienie_obrzek_blony_sluzowej, Objawy[9]);
+     value(wysiek_na_migdalkach, Objawy[10]);
+     value(szaro_biale_naloty_w_gardle, Objawy[11]);
+     value(wybroczyny_lub_pecherzyki, Objawy[12]);
+     value(dyskomfort_przy_mowieniu, Objawy[13]);
+     value(powiekszenie_wezlow_chlonnych_szyi, Objawy[14]);
+                    
+     value(charczenie_przy_wdychaniu_i_wydychaniu, Objawy[15]);
+     value(bladosc, Objawy[16]);
+     value(utrata_masy_ciala, Objawy[17]);
+     value(guz_szyi, Objawy[18]);
+     value(palce_paleczkowate, Objawy[19]);
+     value(sinica, Objawy[20]);
+     value(przyspieszony_oddech, Objawy[21]);
+     value(wydluzony_wydech, Objawy[22]);
+     value(wzdecia, Objawy[23]);
+     value(obfite_i_cuhnace_stolce, Objawy[24]);
+                    
+     value(zle_samopoczucie, Objawy[25]);
+     value(utrata_apetytu, Objawy[26]);
+     value(krwioplucie, Objawy[27]);
+     value(dreszcze, Objawy[28]);
+     value(swiatlowstret, Objawy[29]);
+     value(nudnosci_wymioty, Objawy[30]);
+     value(dusznosc, Objawy[31]);
+     // nie wiem jak ale zgubilem ucisk w klatce piersiowej
+     value(uposledzenia_wechu, Objawy[32]);
+     value(swiad, Objawy[33]);
+     value(zaburzenia_snu, Objawy[34]);
+     value(afonia_aka_zaburzenia_sluchu, Objawy[35]);
+     value(pieczenie_spojowek, Objawy[36]);
+     value(obrzek_powiek, Objawy[37]);
+     value(stridor_swist_krtaniowy, Objawy[38]);
+     value(nocne_poty, Objawy[39]);
+     
+     value(bol_gardla, Objawy[40]);
+     value(bol_glowy, Objawy[41]);
+     value(bol_miesniowy, Objawy[42]);
+     value(bol_brzucha, Objawy[43]);
+     value(bol_kostno_stawowy, Objawy[44]);
+     value(bol_wezlow_chlonnych_szyi, Objawy[45]);
+     value(bol_w_klatce_piersiowej, Objawy[46]);
+     
+     value(ucisk_w_klatce_piersiowej, Objawy[47]);
+     
+     float Choroba[11];
+     
+     //ZAPALENIE ZATOK PRZYNOSOWYCH
+     float T;
+     char Palacz, Wiek, Plec;
+     char Pom, Oa, Aa, Va;
+     catchFact(Pom, _, tempCiala, _, 0);
+     splitOAV(Pom, Oa, Aa, Va);
+     ston(Va, T);
+     catchFact(Pom, _, wiek, _, 0);
+     splitOAV(Pom, Oa, Aa, Wiek);
+     catchFact(Pom, _, plec, _, 0);
+     splitOAV(Pom, Oa, Aa, Plec);
+     catchFact(Pom, _, Palacz, _, 0);
+     splitOAV(Pom, Oa, Aa, Va);
+     
+     
+     Choroba[0] := 6 * Objawy[3] +
+                   20 * Objawy[1] +
+                   8 * Objawy[32] +
+                   8 * Objawy[41] +
+                   6 * Objawy[37] +
+                   12 * Objawy[4] +
+                   20 * Objawy[2]; 
+     if (T > 37.0)
+     begin
+          Choroba[0] := Choroba[0] + 20;
+     end;
+     
+     //OSTRE ZAPALENIE GARD£A
+     if ((Objawy[9] > 0) | (Objawy[10] > 0) | (Objawy[11] > 0))
+     begin
+          Choroba[1] := 0.5 * 10;
+     end;
+     
+     if ((Objawy[9] > 0.5) | (Objawy[10] > 0.5) | (Objawy[11] > 0.5))
+     begin
+          Choroba[1] := 10;
+     end;
+     
+     if (T > 38)
+     begin
+          Choroba[1] := Choroba[1] + 18;
+     end else
+     begin
+          if (T > 37)
+          begin
+               Choroba[1] := Choroba[1] + 0.5 * 18;
+          end;
+     end;
+     Choroba[1] := Choroba[1] +
+                   10 * Objawy[25] +
+                   18 * Objawy[40] +
+                   5 * Objawy[30] +
+                   8 * Objawy[12] +
+                   13 * Objawy[14] +
+                   18 * Objawy[45];
+     
+     //ZAPALENIE KRTANI
+     Choroba[2] := 10 * Objawy[25] +
+                   20 * Objawy[13] +
+                   30 * Objawy[7] +
+                   30 * Objawy[5] +
+                   10 * Objawy[38];
+     if ((Choroba[2] >= 60) & (Palacz = "tak"))
+     begin
+          Choroba[2] := Choroba[2] + 0.5 * (100 - Choroba[2]);
+     end;
+     
+     //RAK KRTANI
+     Choroba[3] := 30 * Objawy[6] +
+                   20 * Objawy[40] +
+                   10 * Objawy[18] +
+                   30 * Objawy[14];
+     if ((Choroba[3] > 60) & (Palacz = "tak"))
+     begin
+          Choroba[3] := Choroba[3] + 0.1 * (100 - Choroba[3]);
+     end;
+     if ((Choroba[3] > 60) & (Plec = "m"))
+     begin
+          Choroba[3] := Choroba[3] + 0.1 * (100 - Choroba[3]);
+     end;
+     
+     //OSTRE ZAPALENIE OSKRZELI
+     if (T > 38)
+     begin
+          Choroba[4] := Choroba[4] + 30;
+     end else
+     begin
+          if (T > 37)
+          begin
+               Choroba[4] := Choroba[4] + 0.5 * 30;
+          end;
+     end;
+     
+     Choroba[4] := Choroba[4] +
+                   20 * Objawy[42] +
+                   40 * Objawy[7] +
+                   10 * Objawy[8];
+     
+     //ASTMA
+     Choroba[5] := 35 * Objawy[31] +
+                   13 * Objawy[47] +
+                   25 * Objawy[7] +
+                   12 * Objawy[1] +
+                   15 * Objawy[22];
+     
+     //ROZSTRZENIE OSKRZELI
+     Choroba[6] := 15 * Objawy[7] +
+                   25 * Objawy[8] +
+                   5 * Objawy[27] +
+                   5 * Objawy[25];              
+     
+     if (T > 38)
+     begin
+          Choroba[6] := Choroba[6] + 10;
+     end else
+     begin
+          if (T > 37)
+          begin
+               Choroba[6] := Choroba[6] + 0.5 * 10;
+          end;
+     end;              
+     
+     if (Objawy[20] = 1)
+     begin
+          Choroba[6] := Choroba[6] + 20;
+     end else
+     begin
+          Choroba[6] := Choroba[6] + 10;
+     end;
+     
+     if (Objawy[19] = 1)
+     begin
+          Choroba[6] := Choroba[6] + 20;
+     end else
+     begin
+          Choroba[6] := Choroba[6] + 10;
+     end;
+     
+     //MUKOWISCYDOZA
+     Choroba[7] :=  5 * Objawy[7] +
+                    5 * Objawy[8] +
+                    10 * Objawy[27] +
+                    10 * Objawy[31] +
+                    10 * Objawy[21] +
+                    5 * Objawy[1] +
+                    10 * Objawy[24] +
+                    5 * Objawy[23] +
+                    5 * Objawy[43] +
+                    10 * Objawy[17] +
+                    10 * Objawy[20] +
+                    10 * Objawy[19];
+     if ((Wiek = "1-5") | (Wiek = "6-10") | (Wiek = "11-15"))
+     begin
+          Choroba[7] := Choroba[7] + 5;
+     end;               
+     
+     //ZAPALENIE P£UC
+     if (T >= 38)
+     begin
+          Choroba[8] := Choroba[8] + 15;
+     end else
+     begin
+          if (T > 37.4)
+          begin
+               Choroba[8] := Choroba[8] + 0.5 * 15;
+          end;
+     end;
+     Choroba[8] := 15 * Objawy[28] +
+                   15 * Objawy[39] +
+                   10 * Objawy[46] +
+                   15 * Objawy[7] +
+                   5 * Objawy[3] +
+                   5 * Objawy[21] +
+                   5 * Objawy[31];
+     if (Choroba[8] > 50)
+     begin
+          if ((Wiek = "61-70") | (Wiek = "71-80") | (Wiek = "81-90") | (Wiek = ">90"))
+          begin
+               Choroba[8] := Choroba[8] + 10;
+          end;
+          if (Palacz = "tak")
+          begin
+               Choroba[8] := Choroba[8] + 5;
+          end;
+     end;                           
+     
+     //OSTRE ALERGICZNE ZAPALENIE PÊCHERZYKÓW P£UCNYCH
+     Choroba[9] := 20 * Objawy[7] +
+                   20 * Objawy[31] +
+                   15 * Objawy[28] +
+                   15 * Objawy[44] +
+                   10 * Objawy[25] +
+                   5 * Objawy[21];
+     if (T >= 38)
+     begin
+          Choroba[9] := Choroba[9] + 15;
+     end else
+     begin
+          if (T >= 37)
+          begin
+               Choroba[9] := Choroba[9] + 0.5 * 15;
+          end;
+     end; 
+     
+     //GRULICA P£UCNA
+     Choroba[10] := 10 * Objawy[26] +
+                    15 * Objawy[17] +
+                    15 * Objawy[39] +
+                    10 * Objawy[25] +
+                    25 * Objawy[7] +
+                    5 * Objawy[8] +
+                    5 * Objawy[27];
+     
+     if (T >= 38)
+     begin
+          Choroba[10] := Choroba[10] + 15;
+     end else
+     begin
+          if (T >= 37)
+          begin
+               Choroba[10] := Choroba[10] + 0.5 * 15;
+          end;
+     end; 
+     
+     // RESZTA
+     int I, J, K;
+     char Tmp;
+     float Tt;
+     for I := 0 to 9 step 1
+     begin
+         K := I + 1;
+         for J := K to 10 step 1
+         begin
+              if (Choroba[J] > Choroba[I])
+              begin
+                   Tt := Choroba[I];
+                   Choroba[I] := Choroba[J];
+                   Choroba[J] := Tt;
+                   
+                   Tmp := Nazwy_chorob[I];
+                   Nazwy_chorob[I] := Nazwy_chorob[J];
+                   Nazwy_chorob[J] := Tmp;          
+              end;
+         end;
+     end;
+     
+     
+     int RET;
+     char TEKST[5]; 
+     sprintf(TEKST[0], "%s [%f%%]", Nazwy_chorob[0], Choroba[0]);
+     sprintf(TEKST[1], "%s [%f%%]", Nazwy_chorob[1], Choroba[1]);
+     sprintf(TEKST[2], "%s [%f%%]", Nazwy_chorob[2], Choroba[2]);
+     sprintf(TEKST[3], "%s [%f%%]", Nazwy_chorob[3], Choroba[3]);
+     sprintf(TEKST[4], "%s [%f%%]", Nazwy_chorob[4], Choroba[4]);
+     slistBox(0, 0, "Diagnoza", "Takie oto choroby", TEKST, 5, RET);
+     
+  end;
+         
+  function pokaBole
+     begin
+         char Stan[3], Dest;
+         Stan[0]:="tak";
+         Stan[1]:="nie";
+         Stan[2]:="nie wiem";
+         int STAN[7];
+         STAN[0]:=0; STAN[1]:=1; STAN[2]:=2; STAN[3]:=3; STAN[4]:=4; STAN[5]:=5; STAN[6]:=6; 
+         char Nazwy[7], IDs[7];
+         Nazwy[0]:=bol_gardla;
+         Nazwy[1]:=bol_glowy;
+         Nazwy[2]:=bol_miesniowy;
+         Nazwy[3]:=bol_brzucha;
+         Nazwy[4]:=bol_kostno_stawowy;
+         Nazwy[5]:=bol_wezlow_chlonnych_szyi;
+         Nazwy[6]:=bol_w_klatce_piersiowej;
+         IDs[0]:=gardlo;
+         IDs[1]:=glowa;
+         IDs[2]:=miesnie;
+         IDs[3]:=brzuch;
+         IDs[4]:=wezly;
+         IDs[5]:=klatka;
+         IDs[6]:=kosci;
+         
+         int DLG_bole, RET, I;
+        dlgCreate(DLG_bole, "", "bole.dlg");
+	 for I:=0 to 6 step 1
+           begin
+             dlgBindRadioButton(DLG_bole, IDs[I], STAN[I]);
+           end;
+        dlgExecute(DLG_bole, RET); 
+     
+         for I:=0 to 6 step 1
+           begin
+              if (STAN[I] == 0) begin
+                addFact(_,Nazwy[I], Stan[0]); 
+              end
+              else begin
+                if(STAN[I] == 1) begin addFact(_,Nazwy[I], Stan[1]); end; 
+              end;
+           end;
+        // for I :=0 to 6 step 1   //for debugging
+        //   begin
+        //     catchFact( Dest, _,Nazwy[I],_ , 0);   // strona 12
+        //     messageBox(0,0,"stan wartosci ", Dest);
+        //   end; 
+     end; //pokaBole
+
+  function pokaStany1
+     begin
+         char Stan[3], Dest;
+         Stan[0]:="tak";
+         Stan[1]:="nie";
+         Stan[2]:="nie wiem";
+         int STAN[16];
+         STAN[0]:=0; STAN[1]:=1; STAN[2]:=2; STAN[3]:=3; STAN[4]:=4; STAN[5]:=5; STAN[6]:=6; STAN[7]:=7; STAN[8]:=8; 
+         STAN[9]:=9; STAN[10]:=10; STAN[11]:=11; STAN[12]:=12; STAN[13]:=13; STAN[14]:=14; STAN[15]:=15;
+         char Nazwy[16];
+         
+         Nazwy[0]:=zle_samopoczucie;
+         Nazwy[1]:=utrata_apetytu;
+         Nazwy[2]:=krwioplucie;
+         Nazwy[3]:=dreszcze;
+         Nazwy[4]:=swiatlowstret;
+         Nazwy[5]:=nudnosci_wymioty;
+         Nazwy[6]:=dusznosc;
+         Nazwy[7]:=ucisk_w_klatce_piersiowej;
+         Nazwy[8]:=uposledzenia_wechu;
+         Nazwy[9]:=swiad;
+         Nazwy[10]:=zaburzenia_snu;
+         Nazwy[11]:=afonia_aka_zaburzenia_sluchu;
+         Nazwy[12]:=pieczenie_spojowek;
+         Nazwy[13]:=obrzek_powiek;
+         Nazwy[14]:=stridor_swist_krtaniowy;
+         Nazwy[15]:=nocne_poty;
+         
+         int DLG_stany1, RET, I;
+        dlgCreate(DLG_stany1, "", "stany_1.dlg");
+	 for I:=0 to 15 step 1
+           begin
+             dlgBindRadioButton(DLG_stany1, Nazwy[I], STAN[I]);
+           end;
+        dlgExecute(DLG_stany1, RET); 
+     
+         for I:=0 to 15 step 1
+           begin
+              if (STAN[I] == 0) begin
+                addFact(_,Nazwy[I], Stan[0]); 
+              end
+              else begin
+                if(STAN[I] == 1) begin addFact(_,Nazwy[I], Stan[1]); end; 
+              end;
+           end;
+     //    for I :=0 to 15 step 1   //for debugging
+     //      begin
+     //        catchFact( Dest, _,Nazwy[I],_ , 0);   // strona 12
+     //        messageBox(0,0,"stan wartosci ", Dest);
+     //      end; 
+     end; //pokaStany1
+ 
+     function pokaStany2
+     begin
+         char Stan[3], Dest;
+         Stan[0]:="tak";
+         Stan[1]:="nie";
+         Stan[2]:="nie wiem";
+         int STAN[10];
+         STAN[0]:=0; STAN[1]:=1; STAN[2]:=2; STAN[3]:=3; STAN[4]:=4; STAN[5]:=5; STAN[6]:=6; STAN[7]:=7; STAN[8]:=8; 
+         STAN[9]:=9;
+         char Nazwy[10];
+         
+         Nazwy[0]:=charczenie_przy_wdychaniu_i_wydychaniu;
+         Nazwy[1]:=bladosc;
+         Nazwy[2]:=utrata_masy_ciala;
+         Nazwy[3]:=guz_szyi;
+         Nazwy[4]:=palce_paleczkowate;
+         Nazwy[5]:=sinica;
+         Nazwy[6]:=przyspieszony_oddech;
+         Nazwy[7]:=wydluzony_wydech;
+         Nazwy[8]:=wzdecia;
+         Nazwy[9]:=obfite_i_cuhnace_stolce;
+         
+         int DLG_stany2, RET, I;
+        dlgCreate(DLG_stany2, "", "stany_2.dlg");
+	 for I:=0 to 9 step 1
+           begin
+             dlgBindRadioButton(DLG_stany2, Nazwy[I], STAN[I]);
+           end;
+        dlgExecute(DLG_stany2, RET); 
+     
+         for I:=0 to 9 step 1
+           begin
+              if (STAN[I] == 0) begin
+                addFact(_,Nazwy[I], Stan[0]); 
+              end
+              else begin
+                if(STAN[I] == 1) begin addFact(_,Nazwy[I], Stan[1]); end; 
+              end;
+           end;
+     //    for I :=0 to 9 step 1   //for debugging
+     //      begin
+     //        catchFact( Dest, _,Nazwy[I],_ , 0);   // strona 12
+     //        messageBox(0,0,"stan wartosci ", Dest);
+     //      end; 
+     end; //pokaStany2
+
+     function pokaNos
+     begin
+         char Stan[3], Dest;
+         Stan[0]:="tak";
+         Stan[1]:="nie";
+         Stan[2]:="nie wiem";
+         int STAN[5];
+         STAN[0]:=0; STAN[1]:=1; STAN[2]:=2; STAN[3]:=3; STAN[4]:=4; 
+         char Nazwy[5];
+         
+         Nazwy[0]:=kichanie;
+         Nazwy[1]:=zatkany_nos;
+         Nazwy[2]:=wydzielina_z_nosa;
+         Nazwy[3]:=czy_splywa_do_gardla;
+         Nazwy[4]:=zaczerwienienie_obrzek_blony_sluzowej_nosa;
+
+
+         int DLG_nos, RET, I;
+        dlgCreate(DLG_nos, "", "nos.dlg");
+	 for I:=0 to 4 step 1
+           begin
+             dlgBindRadioButton(DLG_nos, Nazwy[I], STAN[I]);
+           end;
+        dlgExecute(DLG_nos, RET); 
+     
+         for I:=0 to 4 step 1
+           begin
+              if (STAN[I] == 0) begin
+                addFact(_,Nazwy[I], Stan[0]); 
+              end
+              else begin
+                if(STAN[I] == 1) begin addFact(_,Nazwy[I], Stan[1]); end; 
+              end;
+              if(STAN[I] == 2) begin addFact(_,Nazwy[I], Stan[2]); end; 
+           end;
+     //    for I :=0 to 4 step 1   //for debugging
+     //      begin
+     //        catchFact( Dest, _,Nazwy[I],_ , 0);   // strona 12
+     //        messageBox(0,0,"stan wartosci ", Dest);
+     //      end; 
+     end; //pokaNos
+     
+     function pokaGardlo
+     begin
+         char Stan[3], Dest;
+         Stan[0]:="tak";
+         Stan[1]:="nie";
+         Stan[2]:="nie wiem";
+         int STAN[10];
+         STAN[0]:=0; STAN[1]:=1; STAN[2]:=2; STAN[3]:=3; STAN[4]:=4; STAN[5]:=5; STAN[6]:=6; STAN[7]:=7; STAN[8]:=8; 
+         STAN[9]:=9;
+         char Nazwy[10];
+         
+         Nazwy[0]:=chrypka;
+         Nazwy[1]:=chrypka_przewlekla;
+         Nazwy[2]:=kaszel;
+         Nazwy[3]:=wykrztuszanie_ropnej_wydzieliny;
+         Nazwy[4]:=zaczerwienienie_obrzek_blony_sluzowej;
+         Nazwy[5]:=wysiek_na_migdalkach;
+         Nazwy[6]:=szaro_biale_naloty_w_gardle;
+         Nazwy[7]:=wybroczyny_lub_pecherzyki;
+         Nazwy[8]:=dyskomfort_przy_mowieniu;
+         Nazwy[9]:=powiekszenie_wezlow_chlonnych_szyi;
+
+
+         int DLG_gardlo, RET, I;
+        dlgCreate(DLG_gardlo, "", "gardlo.dlg");
+	 for I:=0 to 9 step 1
+           begin
+             dlgBindRadioButton(DLG_gardlo, Nazwy[I], STAN[I]);
+           end;
+        dlgExecute(DLG_gardlo, RET); 
+     
+         for I:=0 to 9 step 1
+           begin
+              if (STAN[I] == 0) begin
+                addFact(_,Nazwy[I], Stan[0]); 
+              end
+              else begin
+                if(STAN[I] == 1) begin addFact(_,Nazwy[I], Stan[1]); end; 
+              end;
+              if(STAN[I] == 2) begin addFact(_,Nazwy[I], Stan[2]); end; 
+           end;
+         
+    //     for I :=0 to 9 step 1   //for debugging
+    //       begin
+    //         catchFact( Dest, _,Nazwy[I],_ , 0);   // strona 12
+    //         messageBox(0,0,"stan wartosci ", Dest);
+    //       end; 
+     end; //pokaGardlo
 
    function pokaBydlaka
    begin
+     int Plec;
+     int Palacz;
+     char Wiek_wybor;
+     char Ocena;
+     char Temperatura;
+     char Wiek_tab[12];
+     
      int DLG, Ret;
      dlgCreate( DLG, "", "dialog.dlg" );
      Temperatura := "36.6";
@@ -401,7 +993,7 @@ knowledge base nazwa
      ston(Temperatura, Tee);
      addFact(_, tempCiala, Tee);
      
-     if (Plec == 0)
+     if (Plec = 0)
      begin
          addFact(_, plec, "k");
      end
@@ -410,7 +1002,7 @@ knowledge base nazwa
          addFact(_, plec, "m");
      end;
      
-     if (Palacz == 0)
+     if (Palacz = 0)
      begin
          addFact(_, palacz, "nie");
      end
@@ -423,6 +1015,7 @@ knowledge base nazwa
      
    end;
  
+              
       run;
       setAppWinTitle( "Diagnozowanie chorób górnych dróg oddechowych" );
       
@@ -431,7 +1024,13 @@ knowledge base nazwa
    2. "Wyjœcie"
       case 1:
          pokaBydlaka;
-         goal("choroba = Ocena");
+         pokaNos;
+	 pokaGardlo;
+         pokaStany2;
+         pokaStany1;
+         pokaBole;
+	 jakaChoroba;
+         //goal("choroba=X");
       case 2:
        exit; 
      end;
